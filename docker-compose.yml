@@ -1,0 +1,15 @@
+version: '2'
+services:
+  web:
+    image: flask-hello
+    restart: always 
+    build: ./web
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/code
+    depends_on:
+    - redis
+    command: python app.py
+  redis: 
+    image: redis
