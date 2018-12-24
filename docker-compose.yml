@@ -13,3 +13,11 @@ services:
     command: gunicorn -b :5000 wsgi:app
   redis: 
     image: redis
+  nginx: 
+    image: flask-nginx
+    restart: always
+    build: ./nginx
+    ports: 
+    - "80:80"
+    depends_on: 
+    - web
