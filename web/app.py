@@ -8,6 +8,3 @@ redis = Redis(host='redis', port=6379)
 def hello_world():
   redis.incr('hits')
   return 'Flask Dockerized. Viewed {} time(s)'.format(redis.get('hits'))
-
-if __name__ == "__main__":  
-  app.run(host='0.0.0.0',debug=True)
