@@ -1,21 +1,26 @@
-version: '2'
+version: '3.7'
 services:
   web:
-    image: flask-hello
+    image: rongying/flask-hello
     restart: always 
     build: ./web
     ports:
     - "5000:5000"
-    volumes:
-    - .:/code
+    deploy: 
+      replicas: 2
+      restart_policy: 
+        condition: on-failure 
     depends_on:
     - redis
     command: gunicorn -b :5000 wsgi:app
   redis: 
     image: redis
   nginx: 
-    image: flask-nginx
-    restart: always
+    image: rongying/flask-nginx
+    deploy: 
+      replicas: 2
+      restart_policy:
+        condition: on-failure 
     build: ./nginx
     ports: 
     - "80:80"
